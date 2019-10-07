@@ -14,4 +14,14 @@ class GameOfLifeTest {
 
         Assertions.assertArrayEquals(world1, gol.evolve());
     }
+
+    @Test
+    void givenWorldOfTwoCell_whenEvolve_thenShouldCreateNewWorld(){
+        int[] world = {0,0};
+        int[] world1 = {0,1,0,0};
+        int[] rule = {0,0,0};
+        GameOfLife gol = new GameOfLife(world,rule);
+
+        Assertions.assertArrayEquals(world1, gol.evolve());
+    }
 }
