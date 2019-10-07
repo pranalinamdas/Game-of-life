@@ -14,6 +14,10 @@ public class GameOfLife {
 
         int[] dummyWorld = getArray();
 
+        return createNewWorld(dummyWorld);
+    }
+
+    private int[] createNewWorld(int[] dummyWorld) {
         for (int i = 1; i < dummyWorld.length - 1; i++) {
 
             if (dummyWorld[i] == deadCell) {
