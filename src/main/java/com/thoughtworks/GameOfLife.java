@@ -18,7 +18,6 @@ public class GameOfLife {
 
     private int[] createNewWorld(int[] paddedWorld,Rule rule) {
         int aliveCell = 1;
-        int deadCell = 0;
         int[] nextWorld = new int[paddedWorld.length];
 
         for (int i = 1; i < paddedWorld.length - 1; i++) {
@@ -34,7 +33,7 @@ public class GameOfLife {
         int[] paddedWorld = new int[world.length + 2];
 
         paddedWorld[0] = 0;
-        for (int i = 1; i < world.length; i++) {
+        for (int i = 1; i < world.length+1; i++) {
             paddedWorld[i] = world[i - 1];
         }
         paddedWorld[paddedWorld.length - 1] = 0;

@@ -45,4 +45,15 @@ class GameOfLifeTest {
 
         Assertions.assertArrayEquals(newWorld, gameOfLife.evolve());
     }
+
+    @Test
+    void givenWorld_whenEvolve_thenShouldCreateNewWorld(){
+        int[] world = {0,1,0,1};
+        int[] newWorld = {0,0,1,0,1,0};
+
+        Rule rule = new Rule(0,1,0);
+        GameOfLife gameOfLife = new GameOfLife(world, rule);
+
+        Assertions.assertArrayEquals(newWorld, gameOfLife.evolve());
+    }
 }
