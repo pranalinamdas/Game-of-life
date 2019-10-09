@@ -3,42 +3,41 @@ package com.thoughtworks;
 public class GameOfLife {
 
     private int[] world;
+    private Rule rule;
 
-    public GameOfLife(int[] world, int[] rule) {
+    // TODO - use rule
+    public GameOfLife(int[] world, Rule rule) {
         this.world = world;
+        this.rule = rule;
     }
 
     public int[] evolve() {
-
-        int[] dummyWorld = getArray();
-
-        return createNewWorld(dummyWorld);
+        int[] paddedWorld = getPaddedWorld();
+        return createNewWorld(paddedWorld,rule);
     }
 
-    private int[] createNewWorld(int[] dummyWorld) {
+    private int[] createNewWorld(int[] paddedWorld,Rule rule) {
         int aliveCell = 1;
         int deadCell = 0;
-        int[] nextWorld = new int[dummyWorld.length];
+        int[] nextWorld = new int[paddedWorld.length];
 
-        for (int i = 1; i < dummyWorld.length - 1; i++) {
+        for (int i = 1; i < paddedWorld.length - 1; i++) {
 
-            if (dummyWorld[i] == deadCell) {
-                if (dummyWorld[i - 1] == deadCell && dummyWorld[i + 1] == deadCell) {
+                if (paddedWorld[i - 1] == rule.left && paddedWorld[i] == rule.self && paddedWorld[i + 1] == rule.right) {
                     nextWorld[i] = aliveCell;
                 }
-            }
         }
         return nextWorld;
     }
 
-    private int[] getArray() {
-        int[] createArray = new int[world.length + 2];
+    private int[] getPaddedWorld() {
+        int[] paddedWorld = new int[world.length + 2];
 
-        createArray[0] = 0;
+        paddedWorld[0] = 0;
         for (int i = 1; i < world.length; i++) {
-            createArray[i] = world[i - 1];
+            paddedWorld[i] = world[i - 1];
         }
-        createArray[createArray.length - 1] = 0;
-        return createArray;
+        paddedWorld[paddedWorld.length - 1] = 0;
+        return paddedWorld;
     }
 }
