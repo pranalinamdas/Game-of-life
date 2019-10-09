@@ -18,22 +18,29 @@ public class GameOfLife {
     }
 
     private int[] createNewWorld(int[] paddedWorld, List<Rule> rule) {
-        int aliveCell = 1;
-        int deadCell = 0;
+
         int[] nextWorld = new int[paddedWorld.length];
 
         for (Rule value : rule) {
-            for (int i = 1; i < paddedWorld.length - 1; i++) {
-                if (paddedWorld[i - 1] == value.left && paddedWorld[i] == value.self && paddedWorld[i + 1] == value.right) {
-                    nextWorld[i] = aliveCell;
-                }
-                if (paddedWorld[i] != value.self) {
-                    nextWorld[i] = deadCell;
-                }
-            }
+            applyRule(paddedWorld, nextWorld, value);
         }
         return nextWorld;
     }
+
+    private void applyRule(int[] paddedWorld, int[] nextWorld, Rule value) {
+        int aliveCell = 1;
+        int deadCell = 0;
+
+        for (int i = 1; i < paddedWorld.length - 1; i++) {
+            if (value.isMatch(paddedWorld, value, i)) {
+                nextWorld[i] = aliveCell;
+            }
+            if (value.isSelfMatch(paddedWorld[i], value)) {
+                nextWorld[i] = deadCell;
+            }
+        }
+    }
+
 
     private int[] getPaddedWorld() {
         int[] paddedWorld = new int[world.length + 2];
